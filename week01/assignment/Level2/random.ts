@@ -47,28 +47,20 @@ const dinner:Dinner = {
     organize(array:Member[]):void {
         this.shuffle(array);
 
-        let mem1: Member = array.pop() as Member;
-        while (true) {
-            if (mem1.group == 'ob'){
-                break;   
-                }
-            else {
-                mem1 = array.pop() as Member;
+        const dinnerMember: string[] = [];
+
+        for(const mem of array){
+            if(mem.group == 'ob'){
+                dinnerMember[0] = mem.name;
+            }
+            else{
+                dinnerMember[1] = mem.name;   // index [0] 이 없어도 [1] 먼저 접근 가능함  비어있을 땐 <1 empty item> 
+            }
+
+            if(dinnerMember[0] != undefined && dinnerMember[1] != undefined) {
+                break;
             }
         }
-        
-
-        let mem2: Member = array.pop() as Member;
-        while (true) {
-            if (mem2.group == 'yb'){
-                break ;
-                }
-            else {
-                mem2 = array.pop() as Member;
-            }
-        }
-
-        const dinnerMember: string[] = [mem1.name,mem2.name];
         
         console.log(`오늘의 저녁 식사 멤버는 ${dinnerMember[0]}, ${dinnerMember[1]}`);
     }
