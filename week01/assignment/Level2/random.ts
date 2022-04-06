@@ -1,20 +1,4 @@
-// 과제 조건
-// 1. Member, Dinner interface 만들고 타입 지정하기
-// 2. organize 내부 로직 채우기
-
-
-
-interface Member {
-    name: string;
-    group: string;
-}
-
-interface Dinner {
-    member: Member[];
-    shuffle(array:Member[]): Member[];
-    organize(array:Member[]): void;
-    
-}
+import { Member,Dinner } from "./interface";
 
 const dinner:Dinner = {
     member: [
@@ -47,23 +31,23 @@ const dinner:Dinner = {
     organize(array:Member[]):void {
         this.shuffle(array);
 
-        const dinnerMember: string[] = [];
+        const ob = array.find(mem => mem.group == 'ob') as Member;  //as Member를 안해주면 undefined로 인식됨
+        const yb = array.find(mem => mem.group == 'yb') as Member;
 
-        for(const mem of array){
-            if(mem.group == 'ob'){
-                dinnerMember[0] = mem.name;
-            }
-            else{
-                dinnerMember[1] = mem.name;   // index [0] 이 없어도 [1] 먼저 접근 가능함  비어있을 땐 <1 empty item> 
-            }
-
-            if(dinnerMember[0] != undefined && dinnerMember[1] != undefined) {
-                break;
-            }
-        }
-        
+        const dinnerMember: string[] = [ob.name,yb.name];
         console.log(`오늘의 저녁 식사 멤버는 ${dinnerMember[0]}, ${dinnerMember[1]}`);
     }
+
 };
 
 dinner.organize(dinner.member);
+
+/*
+array.pop,find() 모두 return 값이 undefined였음
+이를 해결하기 위해
+1. as Member로 타입 단언하기
+2. 밑에서 호출할 때 ob?.name처럼 '?'를 추가하여 프로퍼티를 추가하도록 
+ // const dinnerMember: string[] = [ob?.name,yb?.name];
+(이때 '?'는 앞에서 배운 *선택적 프로퍼티*로 쓰이는 것이 아닌 *옵셔널 체이닝*이라는 개념!)
+
+*/
