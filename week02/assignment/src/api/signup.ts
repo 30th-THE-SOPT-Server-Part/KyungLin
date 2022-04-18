@@ -2,6 +2,7 @@ import express, {Request, Response, Router} from 'express';
 import { User,userStorage } from '../models/user';
 
 const router: Router = express.Router();
+import { rm,sc } from '../constants/index';
 
 router.post('/', (req: Request,res: Response) => {
 
@@ -10,23 +11,23 @@ router.post('/', (req: Request,res: Response) => {
     if (id && name) {
         // 아이디 중복 검사
         if (userStorage.hasUserId(id)) {
-            return res.status(409).json({
-                status: 409,
-                message: '존재하는 아이디입니다'
+            return res.status(sc.CONFLICT).json({
+                status: sc.CONFLICT,
+                message: rm.ALREADY_ID
             });
         } else {
             const newUser: User = {id: id, name: name};
             userStorage.addUser(newUser);
-            return res.status(200).json({
-                status: 200,
-                message: '회원가입 완료'
+            return res.status(sc.CREATED).json({
+                status: sc.CREATED,
+                message: rm.SINGUP_SUCCESS
             });
         }
     } else {
         // 아이디, 이름 기입하지 않았을 때
-        return res.status(404).json({
-            status: 404,
-            message: 'id,name 미기입'
+        return res.status(sc.NOTFOUND).json({
+            status: sc.NOTFOUND,
+            message: rm.INVAILD_FORM
         }); 
     }
 });

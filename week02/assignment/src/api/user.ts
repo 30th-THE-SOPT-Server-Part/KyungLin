@@ -1,14 +1,14 @@
 import express, { Request, Response, Router} from 'express';
 import { User, userStorage } from '../models/user';
-
+import { rm,sc } from '../constants/index';
 
 
 const router: Router = express.Router();
 
 router.get('/', (req: Request,res: Response) => {
-    return res.status(200).json({
-        status: 200,
-        message: 'user 조회 가능',
+    return res.status(sc.OK).json({
+        status: sc.OK,
+        message: rm.READ_USER_SUCCESS,
         data: userStorage.users 
     }) 
 });
@@ -19,15 +19,15 @@ router.get('/:userId', (req: Request,res: Response) => {
     const user: User | undefined = userStorage.getUser(userId)   
 
     if (user) {
-        return res.status(200).json({
-            status: 200,
-            message: 'user 조회 가능',
+        return res.status(sc.OK).json({
+            status: sc.OK,
+            message: rm.READ_USER_SUCCESS,
             data: {id: user.id, name: user.name}
             }) 
     } else {
-        return res.status(404).json({
-            status: 404,
-            message: '해당 user가 존재하지않습니다'
+        return res.status(sc.NOTFOUND).json({
+            status: sc.NOTFOUND,
+            message: rm.NO_USER
             })
     }
 });

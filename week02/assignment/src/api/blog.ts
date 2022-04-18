@@ -1,11 +1,12 @@
 import express, { Response, Request, Router} from 'express';
+import { rm,sc } from '../constants/index';
 
 const router: Router = express.Router();
 
 router.get('/', (req: Request, res: Response) => {
-    return res.status(500).json({
-        status:500,
-        message: 'blog 조회 불가능, 서버 오류'
+    return res.status(sc.SERVICE_UNAVAILABLE).json({
+        status: sc.SERVICE_UNAVAILABLE,
+        message: rm.INTERNAL_SERVER_ERROR
     });
 });
 
