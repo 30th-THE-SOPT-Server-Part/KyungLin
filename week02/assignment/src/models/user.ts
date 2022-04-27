@@ -1,20 +1,20 @@
 import { builtinModules } from "module";
 
 interface User {
-    id: number,
+    id: string,
     name: string
 }
 
 class userStorage {
 
     static users: User[] = [
-        {id: 1, name: 'user1'},
-        {id: 2, name: 'user2'},
-        {id: 3, name: 'user3'}
+        {id: '1', name: 'user1'},
+        {id: '2', name: 'user2'},
+        {id: '3', name: 'user3'}
     ];
 
-    static getUser(userId: number): User | undefined {
-        const user: User | undefined = this.users.find(data => data.id == userId);  // userId의 type이 number로 형변환이 안됨 === 사용 못함
+    static getUser(userId: string): User | undefined {
+        const user: User | undefined = this.users.find(data => data.id === userId);  // userId의 type이 number로 형변환이 안됨 === 사용 못함
         
         return user;
     }

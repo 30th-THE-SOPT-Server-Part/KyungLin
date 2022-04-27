@@ -15,8 +15,8 @@ router.get('/', (req: Request,res: Response) => {
 
 router.get('/:userId', (req: Request,res: Response) => {
 
-    const userId: number = req.params.userId as unknown as number;
-    const user: User | undefined = userStorage.getUser(userId)   
+    const userId: string = req.params.userId;  
+    const user: User | undefined = userStorage.getUser(userId);   
 
     if (user) {
         return res.status(sc.OK).json({
