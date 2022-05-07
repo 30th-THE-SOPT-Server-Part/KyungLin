@@ -1,6 +1,5 @@
 import { PostBaseResponseDto } from "../interfaces/common/PostBaseResponseDto";
 import { PostCreateDto } from "../interfaces/post/PostCreateDto";
-import { PostResponseByUserDto } from "../interfaces/post/PostResponseByUserDto";
 import { PostResponseDto } from "../interfaces/post/PostResponseDto";
 import { PostUpdateDto } from "../interfaces/post/PostUpdateDto";
 import Post from "../models/Post";
